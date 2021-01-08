@@ -14,9 +14,6 @@ inputs:
   terraform_plugins_dir:
     type: string
     default: { get_secret: terraform_plugins_dir }
-  terraform_storage_dir:
-    type: string
-    default: { get_secret: terraform_storage_dir }
   module_source:
     type: string
   variables:
@@ -28,9 +25,10 @@ node_templates:
   terraform:
     type: cloudify.nodes.terraform
     properties:
+      resource_config:
+        use_existing_resource: true
       terraform_config:
         executable_path: { get_input: terraform_executable }
-        storage_path: { get_input: terraform_storage_dir }
         plugins_dir: { get_input: terraform_plugins_dir }
 
   terraform_module:
