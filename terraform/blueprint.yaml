@@ -4,7 +4,7 @@ description: >
   This blueprint creates infrastructure using Terraform.
 
 imports:
-  - http://cloudify.co/spec/cloudify/5.0.5/types.yaml
+  - http://cloudify.co/spec/cloudify/5.1.1/types.yaml
   - plugin:cloudify-terraform-plugin
 
 inputs:
@@ -39,7 +39,8 @@ node_templates:
       resource_config:
         environment_variables: { get_input: environment_variables }
         variables: { get_input: variables }
-        source: { get_input: module_source }
+        source:
+          location: { get_input: module_source }
     relationships:
       - target: terraform
         type: cloudify.terraform.relationships.run_on_host
