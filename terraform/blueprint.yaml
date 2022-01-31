@@ -16,6 +16,8 @@ inputs:
     default: { get_secret: terraform_plugins_dir }
   module_source:
     type: string
+  module_source_path:
+    type: string
   variables:
     default: {}
   environment_variables:
@@ -39,6 +41,7 @@ node_templates:
         variables: { get_input: variables }
         source:
           location: { get_input: module_source }
+        source_path: { get_input: module_source_path }
     relationships:
       - target: terraform
         type: cloudify.terraform.relationships.run_on_host
