@@ -44,7 +44,13 @@ node_templates:
         source_path: { get_input: module_source_path }
     interfaces:
       cloudify.interfaces.lifecycle:
-        configure: tf.cloudify_tf.tasks.plan
+        configure: 
+          implementation: tf.cloudify_tf.tasks.plan
+          inputs:
+            source: { get_property: [SELF, resource_config, source ] }
+            source_path: { get_property: [SELF, resource_config, source_path ] }
+            force: false
+        
     relationships:
       - target: terraform
         type: cloudify.terraform.relationships.run_on_host
